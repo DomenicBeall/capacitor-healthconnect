@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="health_permissions">
-        <item>androidx.health.permission.HeartRate.READ</item>
-        <item>androidx.health.permission.HeartRate.WRITE</item>
-        <item>androidx.health.permission.Steps.READ</item>
-        <item>androidx.health.permission.Steps.WRITE</item>
+        <item>androidx.health.permission.ActiveCaloriesBurnedRecord.READ</item>
+        <item>androidx.health.permission.BasalMetabolicRateRecord.READ</item>
+        <item>androidx.health.permission.BloodPressureRecord.READ</item>
+        <item>androidx.health.permission.CyclingPedalingCadenceRecord.READ</item>
+        <item>androidx.health.permission.DistanceRecord.READ</item>
+        <item>androidx.health.permission.ElevationGainedRecord.READ</item>
+        <item>androidx.health.permission.ExerciseSessionRecord.READ</item>
+        <item>androidx.health.permission.FloorsClimbedRecord.READ</item>
+        <item>androidx.health.permission.HeartRateRecord.READ</item>
+        <item>androidx.health.permission.HeightRecord.READ</item>
+        <item>androidx.health.permission.HydrationRecord.READ</item>
+        <item>androidx.health.permission.NutritionRecord.READ</item>
+        <item>androidx.health.permission.PowerRecord.READ</item>
+        <item>androidx.health.permission.RestingHeartRateRecord.READ</item>
+        <item>androidx.health.permission.SleepSessionRecord.READ</item>
+        <item>androidx.health.permission.SpeedRecord.READ</item>
+        <item>androidx.health.permission.StepsCadenceRecord.READ</item>
+        <item>androidx.health.permission.StepsRecord.READ</item>
+        <item>androidx.health.permission.SwimmingStrokesRecord.READ</item>
+        <item>androidx.health.permission.TotalCaloriesBurnedRecord.READ</item>
+        <item>androidx.health.permission.Vo2MaxRecord.READ</item>
+        <item>androidx.health.permission.WaistCircumferenceRecord.READ</item>
+        <item>androidx.health.permission.WeightRecord.READ</item>
+        <item>androidx.health.permission.WheelchairPushesRecord.READ</item>
     </array>
 </resources>

@@ -1,12 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cardihab.plugins.healthconnect">
+
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
     </queries>
+
     <application>
-        <activity android:name=".PermissionsRationaleActivity" android:exported="true">
+        <activity
+            android:name=".PermissionsRationaleActivity"
+            android:exported="true"
+        >
             <intent-filter>
-                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"/>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
             <meta-data
                 android:name="health_permissions"
@@ -14,4 +20,5 @@
             />
         </activity>
     </application>
+
 </manifest>

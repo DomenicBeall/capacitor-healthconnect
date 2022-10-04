@@ -8,6 +8,8 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.annotation.RequiresApi
 import androidx.collection.ArraySet
 import androidx.health.connect.client.aggregate.AggregateMetric
+import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.request.AggregateRequest
 import com.getcapacitor.PluginCall
 import androidx.health.connect.client.time.TimeRangeFilter
@@ -21,9 +23,11 @@ class HealthConnectPlugin : Plugin() {
     private var healthConnectClient: HealthConnectClient? = null
 
     @PluginMethod
-    override fun load() {
+    fun init() {
         if (HealthConnectClient.isAvailable(context)) {
             healthConnectClient = HealthConnectClient.getOrCreate(context)
+
+            //PermissionManager.checkPermissions(healthConnectClient!!);
         }
     }
 
@@ -38,41 +42,36 @@ class HealthConnectPlugin : Plugin() {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @PluginMethod
-    suspend fun queryAggregatedDailySampleType(call: PluginCall) {
+    suspend fun queryAggregatedSampleType(call: PluginCall) {
         if (call.hasOption("recordName")
                 && call.hasOption("startDate")
-                && call.hasOption("endDate")
-                && call.hasOption("limit")) {
-            return call.reject("queryAggregatedDailySampleType is missing parameters.")
+                && call.hasOption("endDate")) {
+            return call.reject("queryAggregatedSampleType is missing parameters.")
         }
 
         val recordName = call.getString("recordName")
         val startDate = call.getString("startDate")
         val endDate = call.getString("endDate")
-        val limit = call.getString("limit")
 
         val startInstant = Date(startDate).toInstant()
         val endInstant = Date(endDate).toInstant()
 
-        val aggregateMetric = getAggregateMetricByRecordName(recordName!!);
+        val aggregateMetrics = RecordMetric.getAggregateMetricsByRecordName(recordName!!);
 
         val response = healthConnectClient!!.aggregate(
             AggregateRequest(
-                    metrics = setOf(aggregateMetric!!),
+                    metrics = aggregateMetrics!!,
                     timeRangeFilter = TimeRangeFilter.between(startInstant, endInstant)
             )
         )
 
         var jsResponse: JSObject = JSObject()
-        jsResponse.put(recordName, response[aggregateMetric])
-        call.resolve(jsResponse)
-    }
 
-    private fun getAggregateMetricByRecordName(recordName: String): AggregateMetric<*>? {
-        return when (recordName) {
-            "steps" -> StepsRecord.COUNT_TOTAL
-            else -> null
+        aggregateMetrics.iterator().forEach {
+            jsResponse.put(recordName, response[it])
         }
+
+        call.resolve(jsResponse)
     }
 
 }
